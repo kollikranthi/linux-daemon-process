@@ -1,4 +1,3 @@
-(https://github.com/user-attachments/files/35331774/README.9.md)
 # Linux Daemon Process (`student_daemon`)
 
 ![Language](https://img.shields.io/badge/Language-C-blue)
