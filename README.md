@@ -240,19 +240,6 @@ Note: the second instance still forks and detaches first, then exits silently wh
 - **PPID is not always 1.** On modern Linux an orphaned process may be adopted by a "subreaper" instead of PID 1. Focus on successful detachment, not a literal `1`.
 - **Modern alternative:** with systemd you can write a plain foreground service and let systemd supervise it, so double-forking is not required.
 
-## Known Limitations and Improvements
-
-This version is a learning implementation. Planned improvements:
-
-- [ ] **Signal-safe handlers.** The handler currently calls `fopen`, `fprintf` and `exit`, which are not async-signal-safe. Set `volatile sig_atomic_t` flags in the handler (`running`, `reload_requested`) and do the logging in the main loop
-- [ ] Replace `signal()` with `sigaction()` for portable, well-defined behaviour
-- [ ] Use `exit(EXIT_FAILURE)` instead of `exit(0)` on the `setsid`, `chdir`, `getcwd` and `open` error paths
-- [ ] Create the PID file with mode `0644` (it is currently `0666`, writable by everyone), or use a restrictive `umask` such as `027`
-- [ ] Add a timestamp and PID to every log line
-- [ ] Replace `while(1)` with `while(running)` so the loop ends cleanly
-- [ ] Add a `Makefile`
-- [ ] Optional: run it as a systemd-managed foreground service and compare
-
 ## Project Structure
 
 ```
